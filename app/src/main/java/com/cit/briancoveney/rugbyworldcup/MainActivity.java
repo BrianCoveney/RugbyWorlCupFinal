@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     //For the Background Timer
     private long startTime = 0L;
-
+    private long minAppStartTime = 0L;
 
 
     @Override
@@ -145,29 +146,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /* When the app is put into the background
-       the lenght of time is saved and displayed in a Toast */
+    /* When the app is put into the background by Rotating the screen,
+       the length of time is saved and displayed in a Toast */
     @Override
-    protected void onPause()
-    {
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        startTime = System.currentTimeMillis();
+        savedInstanceState.putLong("v1", startTime);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle restoredInstanceState){
+
+        long backgroundTime = System.currentTimeMillis();
+        long savedStartTime = restoredInstanceState.getLong("v1");
+
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_LONG;
+        long millis = backgroundTime - savedStartTime;
+        int seconds = (int) (millis / 1000);
+        seconds = seconds % 60;
+        CharSequence text = String.format("App Rotated for " + "%02d:%d", seconds, millis);
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        super.onRestoreInstanceState(restoredInstanceState);
+    }
+
+
+
+    /* When the app is put into the background by minimising and then re-opening the app,
+       the length of time is saved and displayed in a Toast */
+    @Override
+    public void onPause(){
         super.onPause();
-        startTime = SystemClock.uptimeMillis();
+        minAppStartTime = SystemClock.uptimeMillis();
     }
 
     @Override
     protected void onRestart()
     {
         super.onRestart();
+
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
-        long millis = SystemClock.uptimeMillis() - startTime;
+        long millis = SystemClock.uptimeMillis() - minAppStartTime;
         int seconds = (int) (millis / 1000);
         int shortMillis = (int) ((millis / 100) % 10);
         seconds = seconds % 60;
-        CharSequence text = String.format("%02d:%d", seconds, shortMillis);
+        CharSequence text = String.format("App Minimised for " + "%02d:%d", seconds, shortMillis);
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
+
 
 
 
