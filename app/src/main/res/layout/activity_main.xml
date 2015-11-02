@@ -1,25 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
-        android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result_quarters"
+        android:id="@+id/textViewQuarters" />
 
-    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result_semi"
+        android:id="@+id/textViewSemi"
+        android:layout_above="@+id/eTxtQrt1"
+        android:layout_toEndOf="@+id/textViewQuarters"
+        android:layout_toRightOf="@+id/textViewQuarters"
+        android:layout_marginStart="41dp"
+        android:layout_marginLeft="41dp"
+        />
 
-    <include layout="@layout/content_main" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/result_final"
+        android:id="@+id/textView"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/textViewSemi"
+        android:layout_toRightOf="@+id/textViewSemi"
+        />
 
-    <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt1"
+        android:hint="@string/team1"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/textViewQuarters"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
 
-</android.support.design.widget.CoordinatorLayout>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt2"
+        android:hint="@string/team2"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtSemi1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt3"
+        android:hint="@string/team3"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtFinal1"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt4"
+        android:hint="@string/team4"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtSemi2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt5"
+        android:hint="@string/team5"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtWinner"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt6"
+        android:hint="@string/team6"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtSemi3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt7"
+        android:hint="@string/team7"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtFinal2"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtQrt8"
+        android:hint="@string/team8"
+        android:gravity="center"
+        android:background="@color/slate_gray"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtSemi4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtSemi1"
+        android:background="@color/bronze"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt1"
+        android:layout_alignStart="@+id/textViewSemi"
+        android:layout_alignLeft="@+id/textViewSemi"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtSemi2"
+        android:background="@color/bronze"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt3"
+        android:layout_alignStart="@+id/eTxtSemi1"
+        android:layout_alignLeft="@+id/eTxtSemi1"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtSemi3"
+        android:background="@color/bronze"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt5"
+        android:layout_alignStart="@+id/eTxtSemi2"
+        android:layout_alignLeft="@+id/eTxtSemi2"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtSemi4"
+        android:background="@color/bronze"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt7"
+        android:layout_alignStart="@+id/eTxtSemi3"
+        android:layout_alignLeft="@+id/eTxtSemi3"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtFinal1"
+        android:background="@color/silver"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt2"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignLeft="@+id/textView"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtFinal2"
+        android:background="@color/silver"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/eTxtQrt6"
+        android:layout_alignStart="@+id/eTxtFinal1"
+        android:layout_alignLeft="@+id/eTxtFinal1"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/eTxtWinner"
+        android:background="@color/gold"
+        android:gravity="center"
+        android:width="60dp"
+        android:height="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/eTxtQrt4"
+        android:layout_toRightOf="@+id/eTxtFinal1"
+        android:layout_toEndOf="@+id/eTxtFinal1" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Winner"
+        android:id="@+id/textView2"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignRight="@+id/eTxtWinner"
+        android:layout_alignEnd="@+id/eTxtWinner" />
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lucky_dip_toggle"
+        android:id="@+id/toggleButton"
+        android:textOn="CLEAR"
+        android:textOff="LUCKY DIP"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+
+
+</RelativeLayout>
