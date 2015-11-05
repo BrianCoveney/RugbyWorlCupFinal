@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         teamSelected();
 
         //Constructors used to create Matches and initialise the fields to
-        //to hold the fixed set of constants from the Team Enum
+        //to hold the fixed set of constants from the Team Enum.
         final Match match1 = new Match(Team.WAL, Team.RSA);
         final Match match2 = new Match(Team.NZL, Team.FRA);
         final Match match3 = new Match(Team.IRE, Team.ARG);
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //no-argument Constructors for the ToggleButton - Lucky Dip
+
         final Round semiFinals = new Round();
         final Round finalGames = new Round();
         final Round theWinner = new Round();
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     Match semi2 = new Match(semis.get(2), semis.get(3));
                     Match semi3 = new Match(semis.get(4), semis.get(5));
                     Match semi4 = new Match(semis.get(6), semis.get(7));
+
 
                     edTSemi1.setText(semi1.chooseAWinner().toString());
                     edTSemi2.setText(semi2.chooseAWinner().toString());
@@ -161,9 +163,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRestoreInstanceState(Bundle restoredInstanceState){
 
+        //current up time of the app
         long backgroundTime = System.currentTimeMillis();
+
+        //the length of time the app is in the background, is retrieved from the Bundle
         long savedStartTime = restoredInstanceState.getLong("timer");
 
+        //Toast - to display result
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
         long millis = backgroundTime - savedStartTime;
@@ -183,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
+        //current up time of the app
         minAppStartTime = SystemClock.uptimeMillis();
     }
 
@@ -191,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onRestart();
 
+        //Toast - to display result
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
         long millis = SystemClock.uptimeMillis() - minAppStartTime;
@@ -209,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
     /* Color Text
     to match Country Colors */
 
-    //add all EditText to the ArrayList
+    //add all EditText to the ArrayList countryName
     public void countryEditTextReferences()
     {
         countryName.add((EditText) findViewById(R.id.eTxtQrt1));
@@ -241,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //The TextWatcher which is instantiated for each EditText for the Quarter Finals
+    // Inner Class - colorTextWatcher, used for each EditText of the Quarter Finals
     private class colorTextWatcher implements TextWatcher
     {
         private EditText text;
@@ -264,52 +272,54 @@ public class MainActivity extends AppCompatActivity {
         public void afterTextChanged(Editable e)
         {
             try{
-            if(e.toString().equalsIgnoreCase(Team.IRE.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.green));
-            }else if(e.toString().equalsIgnoreCase(Team.ENG.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.white));
-            }else if(e.toString().equalsIgnoreCase(Team.WAL.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.red));
-            }else if(e.toString().equalsIgnoreCase(Team.SCT.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.blue));
-            }else if(e.toString().equalsIgnoreCase(Team.ITA.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.cyan));
-            }else if (e.toString().equalsIgnoreCase(Team.RSA.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.rsa_green));
-            }else if(e.toString().equalsIgnoreCase(Team.SAM.toString())){
-                this.text.setTextColor(getResources().getColor(R.color.sam_red));
-            }else if(e.toString().equalsIgnoreCase(Team.JPN.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.jpn_red));
-            }else if(e.toString().equalsIgnoreCase(Team.ROM.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.rom_blue));
-            }else if(e.toString().equalsIgnoreCase(Team.CAN.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.red));
-            }else if(e.toString().equalsIgnoreCase(Team.FIJ.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.cyan));
-            }else if(e.toString().equalsIgnoreCase(Team.URG.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.cyan));
-            }else if(e.toString().equalsIgnoreCase(Team.NZL.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.nzl_blue));
-            }else if(e.toString().equalsIgnoreCase(Team.FRA.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.blue));
-            }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
-                this.text.setTextColor(getResources().getColor(R.color.cyan));
-            }
+                if(e.toString().equalsIgnoreCase(Team.IRE.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.green));
+                }else if(e.toString().equalsIgnoreCase(Team.ENG.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.white));
+                }else if(e.toString().equalsIgnoreCase(Team.WAL.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.red));
+                }else if(e.toString().equalsIgnoreCase(Team.SCT.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.blue));
+                }else if(e.toString().equalsIgnoreCase(Team.ITA.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                }else if (e.toString().equalsIgnoreCase(Team.RSA.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.rsa_green));
+                }else if(e.toString().equalsIgnoreCase(Team.SAM.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.sam_red));
+                }else if(e.toString().equalsIgnoreCase(Team.JPN.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.jpn_red));
+                }else if(e.toString().equalsIgnoreCase(Team.ROM.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.rom_blue));
+                }else if(e.toString().equalsIgnoreCase(Team.CAN.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.red));
+                }else if(e.toString().equalsIgnoreCase(Team.FIJ.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                }else if(e.toString().equalsIgnoreCase(Team.URG.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                }else if(e.toString().equalsIgnoreCase(Team.NZL.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.nzl_blue));
+                }else if(e.toString().equalsIgnoreCase(Team.FRA.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.blue));
+                }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
+                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                }
             }catch(Exception ex){ex.printStackTrace();}
 
 
             //Catches when user enter a number instead of a string
             String regexStr = "^[0-9]*$";
-            if (!(e.toString().trim().matches(regexStr))) {
-                this.text.setError(null);
-            }else{
-                this.text.setError("No digits");
-            }
+            try {
+                if (!(e.toString().trim().matches(regexStr))) {
+                    this.text.setError(null);
+                } else {
+                    this.text.setError("No digits");
+                }
 
-            //Error was not clearing without this
-            if(e.toString().equals("")){
-                this.text.setError(null);
-            }
+                //Error was not clearing without this
+                if (e.toString().equals("")) {
+                    this.text.setError(null);
+                }
+            }catch(Exception exc){exc.printStackTrace();}
         }
     }//end QuartersTextWatcher
 
@@ -376,38 +386,38 @@ public class MainActivity extends AppCompatActivity {
         {
 
             try{
-            //Semi Result No. 1 must match either Quarter 1 or 2
-            if (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt1.getText().toString()) ||
-                    (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt2.getText().toString()))) {
-                edTSemi1.setError(null);
-            }else {
-                edTSemi1.setError("Enter Team 1 or Team 2");
-            }
+                //Semi Result No. 1 must match either Quarter 1 or 2
+                if (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt1.getText().toString()) ||
+                        (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt2.getText().toString()))) {
+                    edTSemi1.setError(null);
+                }else {
+                    edTSemi1.setError("Enter Team 1 or Team 2");
+                }
 
 
-            //Semi Result No. 2 must match either Quarter 3 or 4
-            if (edTSemi2.getText().toString().equalsIgnoreCase(edTQrt3.getText().toString()) ||
-                    (edTSemi2.getText().toString().equalsIgnoreCase(edTQrt4.getText().toString()))){
-                edTSemi2.setError(null);
-            }else {
-                edTSemi2.setError("Enter Team 3 or Team 4");
-            }
+                //Semi Result No. 2 must match either Quarter 3 or 4
+                if (edTSemi2.getText().toString().equalsIgnoreCase(edTQrt3.getText().toString()) ||
+                        (edTSemi2.getText().toString().equalsIgnoreCase(edTQrt4.getText().toString()))){
+                    edTSemi2.setError(null);
+                }else {
+                    edTSemi2.setError("Enter Team 3 or Team 4");
+                }
 
-            //Semi Result No. 3 must match either Quarter 5 or 6
-            if (edTSemi3.getText().toString().equalsIgnoreCase(edTQrt5.getText().toString()) ||
-                    (edTSemi3.getText().toString().equalsIgnoreCase(edTQrt6.getText().toString()))){
-                edTSemi3.setError(null);
-            }else {
-                edTSemi3.setError("Enter Team 5 or Team 6");
-            }
+                //Semi Result No. 3 must match either Quarter 5 or 6
+                if (edTSemi3.getText().toString().equalsIgnoreCase(edTQrt5.getText().toString()) ||
+                        (edTSemi3.getText().toString().equalsIgnoreCase(edTQrt6.getText().toString()))){
+                    edTSemi3.setError(null);
+                }else {
+                    edTSemi3.setError("Enter Team 5 or Team 6");
+                }
 
-            //Semi Result No. 4 must match either Quarter 7 or 8
-            if (edTSemi4.getText().toString().equalsIgnoreCase(edTQrt7.getText().toString()) ||
-                    (edTSemi2.getText().toString().equalsIgnoreCase(edTQrt8.getText().toString()))){
-                edTSemi4.setError(null);
-            }else {
-                edTSemi4.setError("Enter Team 7 or Team 8");
-            }
+                //Semi Result No. 4 must match either Quarter 7 or 8
+                if (edTSemi4.getText().toString().equalsIgnoreCase(edTQrt7.getText().toString()) ||
+                        (edTSemi4.getText().toString().equalsIgnoreCase(edTQrt8.getText().toString()))){
+                    edTSemi4.setError(null);
+                }else {
+                    edTSemi4.setError("Enter Team 7 or Team 8");
+                }
             }catch(Exception ex){ex.printStackTrace();}
 
         } //end afterTextChanged
@@ -428,21 +438,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable e) {
             try{
-            //Final Result No. 1 must match either Semis 1 or 2
-            if (edTF1.getText().toString().equalsIgnoreCase(edTSemi1.getText().toString()) ||
-                    (edTF1.getText().toString().equalsIgnoreCase(edTSemi2.getText().toString()))) {
-                edTF1.setError(null);
-            } else {
-                edTF1.setError("Enter Team 1 or Team 2");
-            }
+                //Final Result No. 1 must match either Semis 1 or 2
+                if (edTF1.getText().toString().equalsIgnoreCase(edTSemi1.getText().toString()) ||
+                        (edTF1.getText().toString().equalsIgnoreCase(edTSemi2.getText().toString()))) {
+                    edTF1.setError(null);
+                } else {
+                    edTF1.setError("Enter Team 1 or Team 2");
+                }
 
-            //Semi Result No. 2 must match either Semis 3 or 4
-            if (edTF2.getText().toString().equalsIgnoreCase(edTSemi3.getText().toString()) ||
-                    (edTF2.getText().toString().equalsIgnoreCase(edTSemi4.getText().toString()))) {
-                edTF2.setError(null);
-            } else {
-                edTF2.setError("Enter Team 3 or Team 4");
-            }
+                //Semi Result No. 2 must match either Semis 3 or 4
+                if (edTF2.getText().toString().equalsIgnoreCase(edTSemi3.getText().toString()) ||
+                        (edTF2.getText().toString().equalsIgnoreCase(edTSemi4.getText().toString()))) {
+                    edTF2.setError(null);
+                } else {
+                    edTF2.setError("Enter Team 3 or Team 4");
+                }
             }catch(Exception ex){ex.printStackTrace();}
         }
 
@@ -488,17 +498,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable e)
         {
+            String team1 = countryName.get(0).getText().toString();
+            String team2 = countryName.get(1).getText().toString();
+            String team3 = countryName.get(2).getText().toString();
+            String team4 = countryName.get(3).getText().toString();
+            String team5 = countryName.get(4).getText().toString();
+            String team6 = countryName.get(5).getText().toString();
+            String team7 = countryName.get(6).getText().toString();
+            String team8 = countryName.get(7).getText().toString();
+
             try{
-
-                String team1 = countryName.get(0).getText().toString();
-                String team2 = countryName.get(1).getText().toString();
-                String team3 = countryName.get(2).getText().toString();
-                String team4 = countryName.get(3).getText().toString();
-                String team5 = countryName.get(4).getText().toString();
-                String team6 = countryName.get(5).getText().toString();
-                String team7 = countryName.get(6).getText().toString();
-                String team8 = countryName.get(7).getText().toString();
-
                 if(team1.equals(team2)){
                     edTQrt2.setError("No duplicate teams");
                 }else {
@@ -538,6 +547,6 @@ public class MainActivity extends AppCompatActivity {
             }catch(Exception ex){ex.printStackTrace();}
         }
 
-    };//end WinnerTextWatcher
+    };//end QuarterValTextWatcher
 
 }//end MainApplication

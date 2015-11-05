@@ -34,6 +34,8 @@ public class Match {
 
     public Team chooseAWinner()
     {
+//        double randomNum = Math.random();
+//        if(randomNum >= 0.5)
         int randomNum = (int)Math.random();
         if(randomNum == 0)
         {
