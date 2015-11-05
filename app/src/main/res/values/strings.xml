@@ -7,13 +7,20 @@
     <string name="result_semi">Semis</string>
     <string name="result_final">Final</string>
     <string name="lucky_dip_toggle">LuckyDip/Clear</string>
-    <string name="team3"><font size="15">team 3</font></string>
-    <string name="team4"><font size="15">team 4</font></string>
-    <string name="team2"><font size="15">team 2</font></string>
-    <string name="team1"><font size="15">team 1</font></string>
-    <string name="team5"><font size="15">team 5</font></string>
-    <string name="team6"><font size="15">team 6</font></string>
-    <string name="team7"><font size="15">team 7</font></string>
-    <string name="team8"><font size="15">team 8</font></string>
+    <string name="team3"><font size="15">Quarter 3</font></string>
+    <string name="team4"><font size="15">Quarter 4</font></string>
+    <string name="team2"><font size="15">Quarter 2</font></string>
+    <string name="team1"><font size="15">Quarter 1</font></string>
+    <string name="team5"><font size="15">Quarter 5</font></string>
+    <string name="team6"><font size="15">Quarter 6</font></string>
+    <string name="team7"><font size="15">Quarter 7</font></string>
+    <string name="team8"><font size="15">Quarter 8</font></string>
+    <string name="semi1">Semi 1</string>
+    <string name="semi2">Semi 2</string>
+    <string name="semi3">Semi 3</string>
+    <string name="semi4">Semi 4</string>
+    <string name="final1">Final 1</string>
+    <string name="final2">Final 2</string>
+    <string name="the_winner">Winner</string>
 
 </resources>

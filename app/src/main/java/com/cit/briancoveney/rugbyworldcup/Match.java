@@ -7,7 +7,6 @@ public class Match {
     private Team teamOne;
     private Team teamTwo;
 
-    private Match preceedingMatch;
 
     public Match(Team teamOne, Team teamTwo)
     {

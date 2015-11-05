@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.widget.CompoundButton;
@@ -23,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText edTSemi1, edTSemi2, edTSemi3, edTSemi4, edTF1, edTF2, edTW,
             edTQrt1, edTQrt2, edTQrt3, edTQrt4, edTQrt5, edTQrt6, edTQrt7, edTQrt8;
 
+
+    //For validation and changing Text Colour
     private ArrayList<EditText> countryName;
-
-
 
     //For the Background Timer
     private long startTime = 0L;
@@ -38,17 +39,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         countryName = new ArrayList<EditText>();
 
         countryEditTextReferences();
         currentCountryTextWatcher();
         teamSelected();
 
-
-
-        //Create instances of the class Match
-        //to hold the constants Team Enums
+        //Constructors used to create Matches and initialise the fields to
+        //to hold the fixed set of constants from the Team Enum
         final Match match1 = new Match(Team.WAL, Team.RSA);
         final Match match2 = new Match(Team.NZL, Team.FRA);
         final Match match3 = new Match(Team.IRE, Team.ARG);
@@ -59,25 +57,27 @@ public class MainActivity extends AppCompatActivity {
         final Match match8 = new Match(Team.JPN, Team.SAM);
 
 
-        //Create instances of the class Round
+        //no-argument Constructors for the ToggleButton - Lucky Dip
         final Round semiFinals = new Round();
         final Round finalGames = new Round();
         final Round theWinner = new Round();
 
 
-        //adding the Team constants to Match and Round
-        semiFinals.addMatch(match1); semiFinals.addMatch(match2);semiFinals.addMatch(match3);semiFinals.addMatch(match4);
-        semiFinals.addMatch(match5); semiFinals.addMatch(match6);semiFinals.addMatch(match7);semiFinals.addMatch(match8);
+        //adding the Team Enum constants to Match and Round
+        semiFinals.addMatch(match1); semiFinals.addMatch(match2);semiFinals.addMatch(match3);
+        semiFinals.addMatch(match4); semiFinals.addMatch(match5); semiFinals.addMatch(match6);
+        semiFinals.addMatch(match7);semiFinals.addMatch(match8);
 
-        finalGames.addMatch(match1); finalGames.addMatch(match2);finalGames.addMatch(match3); finalGames.addMatch(match4);
-        finalGames.addMatch(match5); finalGames.addMatch(match6);finalGames.addMatch(match7); finalGames.addMatch(match8);
+        finalGames.addMatch(match1); finalGames.addMatch(match2);finalGames.addMatch(match3);
+        finalGames.addMatch(match4); finalGames.addMatch(match5); finalGames.addMatch(match6);
+        finalGames.addMatch(match7); finalGames.addMatch(match8);
 
-        theWinner.addMatch(match1); theWinner.addMatch(match2);theWinner.addMatch(match3); theWinner.addMatch(match4);
-        theWinner.addMatch(match5); theWinner.addMatch(match6);theWinner.addMatch(match7); theWinner.addMatch(match8);
+        theWinner.addMatch(match1); theWinner.addMatch(match2);theWinner.addMatch(match3);
+        theWinner.addMatch(match4); theWinner.addMatch(match5); theWinner.addMatch(match6);
+        theWinner.addMatch(match7); theWinner.addMatch(match8);
 
 
-
-        //Toggle button for Show/Clear of Lucky Dip results
+        //ToggleButton for Show/Clear of Lucky Dip results
         ToggleButton toggle = (ToggleButton) findViewById(R.id.toggleButton);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -96,13 +96,15 @@ public class MainActivity extends AppCompatActivity {
                     edTQrt8.setText(match8.getTeamTwo().toString());
 
 
-                    /* Add Matchs and Choose Winners */
+                    /* Add Match and Choose Winners */
                     // for Semi Finals
                     ArrayList<Team> semis = semiFinals.playMatchesForSemis();
+
                     Match semi1 = new Match(semis.get(0), semis.get(1));
                     Match semi2 = new Match(semis.get(2), semis.get(3));
                     Match semi3 = new Match(semis.get(4), semis.get(5));
                     Match semi4 = new Match(semis.get(6), semis.get(7));
+
                     edTSemi1.setText(semi1.chooseAWinner().toString());
                     edTSemi2.setText(semi2.chooseAWinner().toString());
                     edTSemi3.setText(semi3.chooseAWinner().toString());
@@ -124,15 +126,15 @@ public class MainActivity extends AppCompatActivity {
 
 
                 } else {
-                    //clear results by pressing Lucky Dip button again
-                    edTQrt1.setText(null);
-                    edTQrt2.setText(null);
-                    edTQrt3.setText(null);
-                    edTQrt4.setText(null);
-                    edTQrt5.setText(null);
-                    edTQrt6.setText(null);
-                    edTQrt7.setText(null);
-                    edTQrt8.setText(null);
+                    //clear results by pressing Lucky Dip ToggleButton again
+                    edTQrt1.getText().clear();
+                    edTQrt2.getText().clear();
+                    edTQrt3.getText().clear();
+                    edTQrt4.getText().clear();
+                    edTQrt5.getText().clear();
+                    edTQrt6.getText().clear();
+                    edTQrt7.getText().clear();
+                    edTQrt8.getText().clear();
                     edTSemi1.setText(null);
                     edTSemi2.setText(null);
                     edTSemi3.setText(null);
@@ -143,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+
+    }// end onCreate
 
 
     /* When the app is put into the background by Rotating the screen,
@@ -151,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         startTime = System.currentTimeMillis();
-        savedInstanceState.putLong("v1", startTime);
+        savedInstanceState.putLong("timer", startTime);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -159,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle restoredInstanceState){
 
         long backgroundTime = System.currentTimeMillis();
-        long savedStartTime = restoredInstanceState.getLong("v1");
+        long savedStartTime = restoredInstanceState.getLong("timer");
 
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
@@ -224,39 +227,35 @@ public class MainActivity extends AppCompatActivity {
         countryName.add((EditText) findViewById(R.id.eTxtFinal1));
         countryName.add((EditText) findViewById(R.id.eTxtFinal2));
         countryName.add((EditText) findViewById(R.id.eTxtWinner));
-
     }
 
 
-    //add listener to the current EditText
+    //add listener to the EditText that has focus
     private void currentCountryTextWatcher()
     {
         for(EditText currField : countryName)
         {
-            currField.addTextChangedListener(new QuartersTextWatcher(currField));
+            currField.addTextChangedListener(new colorTextWatcher(currField));
         }
     }
 
 
 
     //The TextWatcher which is instantiated for each EditText for the Quarter Finals
-    private class QuartersTextWatcher implements TextWatcher
+    private class colorTextWatcher implements TextWatcher
     {
         private EditText text;
 
 
-        public QuartersTextWatcher(EditText text) {
-
+        public colorTextWatcher(EditText text)
+        {
             this.text = text;
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {this.text.setError(null);}
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {this.text.setError(null);}
 
 
 
@@ -264,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable e)
         {
+            try{
             if(e.toString().equalsIgnoreCase(Team.IRE.toString())) {
                 this.text.setTextColor(getResources().getColor(R.color.green));
             }else if(e.toString().equalsIgnoreCase(Team.ENG.toString())){
@@ -295,6 +295,21 @@ public class MainActivity extends AppCompatActivity {
             }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
                 this.text.setTextColor(getResources().getColor(R.color.cyan));
             }
+            }catch(Exception ex){ex.printStackTrace();}
+
+
+            //Catches when user enter a number instead of a string
+            String regexStr = "^[0-9]*$";
+            if (!(e.toString().trim().matches(regexStr))) {
+                this.text.setError(null);
+            }else{
+                this.text.setError("No digits");
+            }
+
+            //Error was not clearing without this
+            if(e.toString().equals("")){
+                this.text.setError(null);
+            }
         }
     }//end QuartersTextWatcher
 
@@ -325,19 +340,29 @@ public class MainActivity extends AppCompatActivity {
         edTF2 = (EditText)findViewById(R.id.eTxtFinal2);
         edTW = (EditText)findViewById(R.id.eTxtWinner);
 
-        edTSemi1.addTextChangedListener(SemiTextWatcher);
-        edTSemi2.addTextChangedListener(SemiTextWatcher);
-        edTSemi3.addTextChangedListener(SemiTextWatcher);
-        edTSemi4.addTextChangedListener(SemiTextWatcher);
-        edTF1.addTextChangedListener(FinalTextWatcher);
-        edTF2.addTextChangedListener(FinalTextWatcher);
-        edTW.addTextChangedListener(WinerTextWatcher);
+
+        edTQrt1.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt2.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt3.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt4.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt5.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt6.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt7.addTextChangedListener(QuarterValTextWatcher);
+        edTQrt8.addTextChangedListener(QuarterValTextWatcher);
+
+        edTSemi1.addTextChangedListener(SemiValTextWatcher);
+        edTSemi2.addTextChangedListener(SemiValTextWatcher);
+        edTSemi3.addTextChangedListener(SemiValTextWatcher);
+        edTSemi4.addTextChangedListener(SemiValTextWatcher);
+        edTF1.addTextChangedListener(FinalValTextWatcher);
+        edTF2.addTextChangedListener(FinalValTextWatcher);
+        edTW.addTextChangedListener(WinnerValTextWatcher);
     }
 
 
 
     //1st TW Checking that Semi Final entries match their respective Quarter Final entries
-    TextWatcher SemiTextWatcher = new TextWatcher()
+    TextWatcher SemiValTextWatcher = new TextWatcher()
     {
 
         @Override
@@ -350,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
         public void afterTextChanged(Editable e)
         {
 
-
+            try{
             //Semi Result No. 1 must match either Quarter 1 or 2
             if (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt1.getText().toString()) ||
                     (edTSemi1.getText().toString().equalsIgnoreCase(edTQrt2.getText().toString()))) {
@@ -383,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 edTSemi4.setError("Enter Team 7 or Team 8");
             }
+            }catch(Exception ex){ex.printStackTrace();}
 
         } //end afterTextChanged
 
@@ -391,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //2nd TextWatcher - Checking that Final entries match their respective Semi Final entries
-    TextWatcher FinalTextWatcher = new TextWatcher()
+    TextWatcher FinalValTextWatcher = new TextWatcher()
     {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -400,23 +426,24 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
-        public void afterTextChanged(Editable e)
-        {
+        public void afterTextChanged(Editable e) {
+            try{
             //Final Result No. 1 must match either Semis 1 or 2
             if (edTF1.getText().toString().equalsIgnoreCase(edTSemi1.getText().toString()) ||
                     (edTF1.getText().toString().equalsIgnoreCase(edTSemi2.getText().toString()))) {
                 edTF1.setError(null);
-            }else {
+            } else {
                 edTF1.setError("Enter Team 1 or Team 2");
             }
 
             //Semi Result No. 2 must match either Semis 3 or 4
             if (edTF2.getText().toString().equalsIgnoreCase(edTSemi3.getText().toString()) ||
-                    (edTF2.getText().toString().equalsIgnoreCase(edTSemi4.getText().toString()))){
+                    (edTF2.getText().toString().equalsIgnoreCase(edTSemi4.getText().toString()))) {
                 edTF2.setError(null);
-            }else {
+            } else {
                 edTF2.setError("Enter Team 3 or Team 4");
             }
+            }catch(Exception ex){ex.printStackTrace();}
         }
 
     };//end FinalTextWatcher
@@ -424,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //3rd TextWatcher -Checking that Winner entry matchrs eoth of the Semi Final entries
-    TextWatcher WinerTextWatcher = new TextWatcher()
+    TextWatcher WinnerValTextWatcher = new TextWatcher()
     {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -435,16 +462,82 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable e)
         {
-            //The Winner must match either Final 1 or 2
-            if (edTW.getText().toString().equalsIgnoreCase(edTF1.getText().toString()) ||
-                    (edTW.getText().toString().equalsIgnoreCase(edTF2.getText().toString()))) {
-                edTW.setError(null);
-            }else {
-                edTW.setError("Enter Team 1 or Team 2");
-            }
+            try{
+                //The Winner must match either Final 1 or 2
+                if (edTW.getText().toString().equalsIgnoreCase(edTF1.getText().toString()) ||
+                        (edTW.getText().toString().equalsIgnoreCase(edTF2.getText().toString()))) {
+                    edTW.setError(null);
+                }else {
+                    edTW.setError("Enter Final 1 or 2");
+                }
+            }catch(Exception ex){ex.printStackTrace();}
         }
 
-    };//end WinerTextWatcher
+    };//end WinnerTextWatcher
 
+
+    //4th  TextWatcher - Checking that Quarters Teams are non-duplicate
+    TextWatcher QuarterValTextWatcher = new TextWatcher()
+    {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+        @Override
+        public void afterTextChanged(Editable e)
+        {
+            try{
+
+                String team1 = countryName.get(0).getText().toString();
+                String team2 = countryName.get(1).getText().toString();
+                String team3 = countryName.get(2).getText().toString();
+                String team4 = countryName.get(3).getText().toString();
+                String team5 = countryName.get(4).getText().toString();
+                String team6 = countryName.get(5).getText().toString();
+                String team7 = countryName.get(6).getText().toString();
+                String team8 = countryName.get(7).getText().toString();
+
+                if(team1.equals(team2)){
+                    edTQrt2.setError("No duplicate teams");
+                }else {
+                    edTQrt2.setError(null);
+                }
+                if (edTQrt2.getText().toString().equals("")){
+                    edTQrt2.setError(null); //clears error fully
+                }
+
+                if(team3.equals(team4)){
+                    edTQrt4.setError("No duplicate teams");
+                }else {
+                    edTQrt4.setError(null);
+                }
+                if (edTQrt4.getText().toString().equals("")){
+                    edTQrt4.setError(null);
+                }
+
+                if(team5.equals(team6)){
+                    edTQrt6.setError("No duplicate teams");
+                }else {
+                    edTQrt6.setError(null);
+                }
+                if (edTQrt6.getText().toString().equals("")){
+                    edTQrt6.setError(null);
+                }
+
+                if(team7.equals(team8)){
+                    edTQrt8.setError("No duplicate teams");
+                }else {
+                    edTQrt8.setError(null);
+                }
+                if (edTQrt8.getText().toString().equals("")){
+                    edTQrt8.setError(null);
+                }
+
+            }catch(Exception ex){ex.printStackTrace();}
+        }
+
+    };//end WinnerTextWatcher
 
 }//end MainApplication
