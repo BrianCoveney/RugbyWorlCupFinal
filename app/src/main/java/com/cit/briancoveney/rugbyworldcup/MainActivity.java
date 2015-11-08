@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Looks after coloring text and validation
         countryName = new ArrayList<EditText>();
-
         countryEditTextReferences();
         currentCountryTextWatcher();
         teamSelected();
@@ -51,31 +51,24 @@ public class MainActivity extends AppCompatActivity {
         final Match match2 = new Match(Team.NZL, Team.FRA);
         final Match match3 = new Match(Team.IRE, Team.ARG);
         final Match match4 = new Match(Team.AUS, Team.SCT);
-        final Match match5 = new Match(Team.ARG, Team.URG);
-        final Match match6 = new Match(Team.ENG, Team.FIJ);
-        final Match match7 = new Match(Team.ROM, Team.CAN);
-        final Match match8 = new Match(Team.JPN, Team.SAM);
 
 
         //no-argument Constructors for the ToggleButton - Lucky Dip
-
         final Round semiFinals = new Round();
         final Round finalGames = new Round();
         final Round theWinner = new Round();
 
 
         //adding the Team Enum constants to Match and Round
-        semiFinals.addMatch(match1); semiFinals.addMatch(match2);semiFinals.addMatch(match3);
-        semiFinals.addMatch(match4); semiFinals.addMatch(match5); semiFinals.addMatch(match6);
-        semiFinals.addMatch(match7);semiFinals.addMatch(match8);
+        semiFinals.addMatch(match1); semiFinals.addMatch(match2);
+        semiFinals.addMatch(match3);semiFinals.addMatch(match4);
 
-        finalGames.addMatch(match1); finalGames.addMatch(match2);finalGames.addMatch(match3);
-        finalGames.addMatch(match4); finalGames.addMatch(match5); finalGames.addMatch(match6);
-        finalGames.addMatch(match7); finalGames.addMatch(match8);
 
-        theWinner.addMatch(match1); theWinner.addMatch(match2);theWinner.addMatch(match3);
-        theWinner.addMatch(match4); theWinner.addMatch(match5); theWinner.addMatch(match6);
-        theWinner.addMatch(match7); theWinner.addMatch(match8);
+        finalGames.addMatch(match1); finalGames.addMatch(match2);
+        finalGames.addMatch(match3);finalGames.addMatch(match4);
+
+        theWinner.addMatch(match1); theWinner.addMatch(match2);
+        theWinner.addMatch(match3);theWinner.addMatch(match4);
 
 
         //ToggleButton for Show/Clear of Lucky Dip results
@@ -87,44 +80,37 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
 
                     //Set Team 1 and Team 2 For Quarter Finals
-                    edTQrt1.setText(match1.getTeamOne().toString());
-                    edTQrt2.setText(match2.getTeamTwo().toString());
-                    edTQrt3.setText(match3.getTeamOne().toString());
-                    edTQrt4.setText(match4.getTeamTwo().toString());
-                    edTQrt5.setText(match5.getTeamOne().toString());
-                    edTQrt6.setText(match6.getTeamTwo().toString());
-                    edTQrt7.setText(match7.getTeamOne().toString());
-                    edTQrt8.setText(match8.getTeamTwo().toString());
+                    edTQrt1.setText(Team.WAL.getTeamName());
+                    edTQrt2.setText(Team.RSA.getTeamName());
+                    edTQrt3.setText(Team.NZL.getTeamName());
+                    edTQrt4.setText(Team.FRA.getTeamName());
+                    edTQrt5.setText(Team.IRE.getTeamName());
+                    edTQrt6.setText(Team.ARG.getTeamName());
+                    edTQrt7.setText(Team.AUS.getTeamName());
+                    edTQrt8.setText(Team.SCT.getTeamName());
 
 
                     /* Add Match and Choose Winners */
                     // for Semi Finals
-                    ArrayList<Team> semis = semiFinals.playMatchesForSemis();
-
-                    Match semi1 = new Match(semis.get(0), semis.get(1));
-                    Match semi2 = new Match(semis.get(2), semis.get(3));
-                    Match semi3 = new Match(semis.get(4), semis.get(5));
-                    Match semi4 = new Match(semis.get(6), semis.get(7));
-
-
-                    edTSemi1.setText(semi1.chooseAWinner().toString());
-                    edTSemi2.setText(semi2.chooseAWinner().toString());
-                    edTSemi3.setText(semi3.chooseAWinner().toString());
-                    edTSemi4.setText(semi4.chooseAWinner().toString());
+                    ArrayList<Team> semis = semiFinals.playMatchesForRound();
+                    edTSemi1.setText(semis.get(0).getTeamName());
+                    edTSemi2.setText(semis.get(1).getTeamName());
+                    edTSemi3.setText(semis.get(2).getTeamName());
+                    edTSemi4.setText(semis.get(3).getTeamName());
 
 
-                    // and for Finals
-                    ArrayList<Team> finals = finalGames.playMatchesForFinals();
-                    Match finals1 = new Match(finals.get(2), finals.get(1));
-                    Match finals2 = new Match(finals.get(4), finals.get(5));
+                    // for Final games
+                    Match finals1 = new Match(semis.get(0), semis.get(1));
+                    Match finals2 = new Match(semis.get(2), semis.get(3));
                     edTF1.setText(finals1.chooseAWinner().toString());
                     edTF2.setText(finals2.chooseAWinner().toString());
+                    ArrayList<String> theFinals = new ArrayList<String>();
+                    theFinals.add(edTF1.getText().toString());
+                    theFinals.add(edTF2.getText().toString());
 
 
-                    // and for Winner
-                    ArrayList<Team> winners = theWinner.playMatchesForRound();
-                    Match myWinner = new Match(winners.get(2), winners.get(4));
-                    edTW.setText(myWinner.chooseAWinner().toString());
+                    //for the Winner
+                    edTW.setText(theFinals.get(0).toString());
 
 
                 } else {
@@ -156,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         startTime = System.currentTimeMillis();
-        savedInstanceState.putLong("timer", startTime);
+        savedInstanceState.putLong("savedTimerKey", startTime);
         super.onSaveInstanceState(savedInstanceState);
     }
 
@@ -167,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         long backgroundTime = System.currentTimeMillis();
 
         //the length of time the app is in the background, is retrieved from the Bundle
-        long savedStartTime = restoredInstanceState.getLong("timer");
+        long savedStartTime = restoredInstanceState.getLong("savedTimerKey");
 
         //Toast - to display result
         Context context = getApplicationContext();
@@ -302,6 +288,8 @@ public class MainActivity extends AppCompatActivity {
                     this.text.setTextColor(getResources().getColor(R.color.blue));
                 }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
                     this.text.setTextColor(getResources().getColor(R.color.cyan));
+                }else if(e.toString().equalsIgnoreCase(Team.AUS.toString())){
+                    this.text.setTextColor(getResources().getColor(R.color.gold));
                 }
             }catch(Exception ex){ex.printStackTrace();}
 

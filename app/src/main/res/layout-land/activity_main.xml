@@ -11,27 +11,6 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result_semi"
-        android:id="@+id/textViewSemi"
-        android:textColor="@color/silver"
-
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/eTxtSemi1"
-        android:layout_alignStart="@+id/eTxtSemi1" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result_final"
-        android:id="@+id/textView"
-        android:textColor="@color/silver"
-        android:layout_alignBaseline="@+id/eTxtQrt1"
-        android:layout_alignBottom="@+id/eTxtQrt1"
-        android:layout_centerHorizontal="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +20,7 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -54,7 +33,8 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
-        android:layout_below="@+id/eTxtQrt1"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/eTxtSemi1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -67,7 +47,8 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
-        android:layout_above="@+id/eTxtSemi2"
+        android:layout_alignBaseline="@+id/eTxtSemi2"
+        android:layout_alignBottom="@+id/eTxtSemi2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -80,6 +61,8 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
+        android:layout_marginTop="5dp"
+
         android:layout_above="@+id/eTxtWinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -107,10 +90,10 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
-        android:layout_below="@+id/eTxtSemi3"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/eTxtQrt5"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -123,8 +106,7 @@
         android:height="25dp"
         android:layout_above="@+id/eTxtQrt8"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -135,6 +117,7 @@
         android:background="@drawable/shape_edtext"
         android:width="80dp"
         android:height="25dp"
+        android:layout_marginTop="5dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -148,11 +131,12 @@
         android:gravity="center"
         android:width="80dp"
         android:height="25dp"
-        android:layout_below="@+id/eTxtQrt1"
-        android:layout_toLeftOf="@+id/eTxtFinal1"
-        android:layout_toStartOf="@+id/eTxtFinal1"
-        android:layout_marginRight="40dp"
-        android:layout_marginEnd="40dp" />
+
+        android:layout_marginLeft="39dp"
+        android:layout_marginStart="39dp"
+        android:layout_alignTop="@+id/eTxtQrt1"
+        android:layout_toRightOf="@+id/eTxtQrt1"
+        android:layout_toEndOf="@+id/eTxtQrt1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -163,6 +147,7 @@
         android:gravity="center"
         android:width="80dp"
         android:height="25dp"
+
         android:layout_above="@+id/eTxtQrt4"
         android:layout_alignLeft="@+id/eTxtSemi1"
         android:layout_alignStart="@+id/eTxtSemi1" />
@@ -202,9 +187,8 @@
         android:gravity="center"
         android:width="80dp"
         android:height="25dp"
-        android:layout_below="@+id/eTxtSemi1"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_above="@+id/eTxtSemi2"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -215,9 +199,10 @@
         android:gravity="center"
         android:width="80dp"
         android:height="25dp"
-        android:layout_below="@+id/eTxtSemi3"
-        android:layout_alignLeft="@+id/eTxtFinal1"
-        android:layout_alignStart="@+id/eTxtFinal1" />
+        android:layout_alignBaseline="@+id/eTxtQrt6"
+        android:layout_alignBottom="@+id/eTxtQrt6"
+        android:layout_toLeftOf="@+id/eTxtWinner"
+        android:layout_toStartOf="@+id/eTxtWinner" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -236,17 +221,6 @@
         android:layout_marginStart="30dp" />
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Winner"
-        android:id="@+id/textView2"
-        android:textColor="@color/gold"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/eTxtWinner"
-        android:layout_alignStart="@+id/eTxtWinner" />
-
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -254,7 +228,6 @@
         android:id="@+id/toggleButton"
         android:textOn="CLEAR"
         android:textOff="LUCKY DIP"
-        android:layout_alignTop="@+id/textView2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

@@ -29,38 +29,4 @@ public class Round {
         return winners;
     }
 
-    public  ArrayList<Team> playMatchesForSemis()
-    {
-        ArrayList<Team> semis = new ArrayList<Team>();
-
-        for(Match aMatch : theMatches)
-        {
-            semis.add(aMatch.chooseAWinner());
-        }
-        return semis;
-    }
-
-    public  ArrayList<Team> playMatchesForFinals()
-    {
-        ArrayList<Team> finals = new ArrayList<Team>();
-
-        for(Match aMatch : theMatches)
-        {
-            finals.add(aMatch.chooseAWinner());
-        }
-        return finals;
-    }
-
-
-    public  ArrayList<Team> playMatchesForKicks()
-    {
-        ArrayList<Team> finals = new ArrayList<Team>();
-
-        for(Match aMatch : theMatches)
-        {
-            finals.add(aMatch.chooseAWinner());
-        }
-        return finals;
-    }
-
 }

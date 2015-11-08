@@ -1,26 +1,31 @@
 package com.cit.briancoveney.rugbyworldcup;
 
 /**
- * Created by brian on 11/4/2015.
+ * Created by brian on 11/7/2015.
  */
 public class Country {
 
-    private String countryName;
+    private String teamName;
+    private int color;
+
+    public Country(String teamName)
+    {
+        this.teamName = teamName;
+    }
 
     public Country() {
 
     }
 
-    public Country(String countryName)
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+
+
+    public String getTeamName()
     {
-        this.countryName = countryName;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
+        return teamName;
     }
 }

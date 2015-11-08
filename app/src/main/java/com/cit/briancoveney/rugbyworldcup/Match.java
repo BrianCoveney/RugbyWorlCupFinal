@@ -7,6 +7,10 @@ public class Match {
     private Team teamOne;
     private Team teamTwo;
 
+    public Match(){
+
+    }
+
 
     public Match(Team teamOne, Team teamTwo)
     {
@@ -34,10 +38,8 @@ public class Match {
 
     public Team chooseAWinner()
     {
-//        double randomNum = Math.random();
-//        if(randomNum >= 0.5)
-        int randomNum = (int)Math.random();
-        if(randomNum == 0)
+        double randomNum = Math.random();
+        if(randomNum <= 0.9)
         {
             return teamOne;
         }
@@ -46,6 +48,8 @@ public class Match {
             return teamTwo;
         }
     }
+
+
 
     public boolean isWinnerValid(String name)
     {
