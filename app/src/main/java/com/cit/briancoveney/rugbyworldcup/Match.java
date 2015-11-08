@@ -39,7 +39,7 @@ public class Match {
     public Team chooseAWinner()
     {
         double randomNum = Math.random();
-        if(randomNum <= 0.9)
+        if(randomNum <= 0.9 )
         {
             return teamOne;
         }
@@ -48,32 +48,5 @@ public class Match {
             return teamTwo;
         }
     }
-
-
-
-    public boolean isWinnerValid(String name)
-    {
-        if(name.equals(teamOne.getTeamName()) || name.equals(teamTwo.getTeamName()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public boolean isMatchReaadyToPlay()
-    {
-        if(teamOne != null && teamTwo != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
 
 }

@@ -39,12 +39,9 @@
         android:text="@string/result_final"
         android:id="@+id/textView"
         android:textColor="@color/silver"
-        android:layout_marginStart="61dp"
-        android:layout_marginLeft="61dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textViewSemi"
-        android:layout_toRightOf="@+id/textViewSemi"
-        />
+        android:layout_toRightOf="@+id/eTxtSemi1"
+        android:layout_toEndOf="@+id/eTxtSemi1" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -286,10 +283,8 @@
         android:id="@+id/toggleButton"
         android:textOn="CLEAR"
         android:textOff="LUCKY DIP"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_marginBottom="5dp"/>
+        android:layout_below="@+id/eTxtQrt8"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

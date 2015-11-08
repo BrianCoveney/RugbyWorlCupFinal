@@ -1,36 +1,38 @@
 package com.cit.briancoveney.rugbyworldcup;
 
-
 import android.content.Context;
 import android.os.Bundle;
-
 import android.os.SystemClock;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.util.ArrayList;
-import java.util.Calendar;
+
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# 1.0 - Lucky Dip
+# 2.0 - App in background
+# 3.0 - User Input
+---------------------------------------------------------------*/
 
 
 public class MainActivity extends AppCompatActivity {
 
+    //linked with (3.0 - User Input)
+    private ArrayList<EditText> countryName;
     private EditText edTSemi1, edTSemi2, edTSemi3, edTSemi4, edTF1, edTF2, edTW,
             edTQrt1, edTQrt2, edTQrt3, edTQrt4, edTQrt5, edTQrt6, edTQrt7, edTQrt8;
 
 
-    //For validation and changing Text Colour
-    private ArrayList<EditText> countryName;
-
-    //For the Background Timer
-    private long startTime = 0L;
-    private long minAppStartTime = 0L;
+    //linked with (2.0 - App in Background)
+    private long startTime = 0;
+    private long minAppStartTime = 0;
 
 
     @Override
@@ -39,11 +41,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Looks after coloring text and validation
+        //linked with (3.0 - User Input)
         countryName = new ArrayList<EditText>();
         countryEditTextReferences();
         currentCountryTextWatcher();
         teamSelected();
+
+
+/*========================================================================
+   1.0 - Lucky Dip
+==========================================================================*/
 
         //Constructors used to create Matches and initialise the fields to
         //to hold the fixed set of constants from the Team Enum.
@@ -53,22 +60,15 @@ public class MainActivity extends AppCompatActivity {
         final Match match4 = new Match(Team.AUS, Team.SCT);
 
 
-        //no-argument Constructors for the ToggleButton - Lucky Dip
-        final Round semiFinals = new Round();
-        final Round finalGames = new Round();
-        final Round theWinner = new Round();
+        //Creating a Round for the ToggleButton below
+        final Round rounds = new Round();
 
 
-        //adding the Team Enum constants to Match and Round
-        semiFinals.addMatch(match1); semiFinals.addMatch(match2);
-        semiFinals.addMatch(match3);semiFinals.addMatch(match4);
-
-
-        finalGames.addMatch(match1); finalGames.addMatch(match2);
-        finalGames.addMatch(match3);finalGames.addMatch(match4);
-
-        theWinner.addMatch(match1); theWinner.addMatch(match2);
-        theWinner.addMatch(match3);theWinner.addMatch(match4);
+        //adding the above Matches to the Round object
+        rounds.addMatch(match1);
+        rounds.addMatch(match2);
+        rounds.addMatch(match3);
+        rounds.addMatch(match4);
 
 
         //ToggleButton for Show/Clear of Lucky Dip results
@@ -89,10 +89,9 @@ public class MainActivity extends AppCompatActivity {
                     edTQrt7.setText(Team.AUS.getTeamName());
                     edTQrt8.setText(Team.SCT.getTeamName());
 
-
                     /* Add Match and Choose Winners */
                     // for Semi Finals
-                    ArrayList<Team> semis = semiFinals.playMatchesForRound();
+                    ArrayList<Team> semis = rounds.playMatchesForRound();
                     edTSemi1.setText(semis.get(0).getTeamName());
                     edTSemi2.setText(semis.get(1).getTeamName());
                     edTSemi3.setText(semis.get(2).getTeamName());
@@ -108,10 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     theFinals.add(edTF1.getText().toString());
                     theFinals.add(edTF2.getText().toString());
 
-
                     //for the Winner
                     edTW.setText(theFinals.get(0).toString());
-
 
                 } else {
                     //clear results by pressing Lucky Dip ToggleButton again
@@ -133,36 +130,41 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }// end onCreate
 
+
+
+/*========================================================================
+   2.0 App in Background
+==========================================================================*/
 
     /* When the app is put into the background by Rotating the screen,
        the length of time is saved and displayed in a Toast */
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
         startTime = System.currentTimeMillis();
         savedInstanceState.putLong("savedTimerKey", startTime);
         super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle restoredInstanceState){
-
-        //current up time of the app
+    public void onRestoreInstanceState(Bundle restoredInstanceState)
+    {
+        //current up-time of the app
         long backgroundTime = System.currentTimeMillis();
 
-        //the length of time the app is in the background, is retrieved from the Bundle
+        //the length of time the app is placed in the background - retrieved from the Bundle
         long savedStartTime = restoredInstanceState.getLong("savedTimerKey");
 
         //Toast - to display result
         Context context = getApplicationContext();
-        int duration = Toast.LENGTH_LONG;
+        int toastDuration = Toast.LENGTH_LONG;
         long millis = backgroundTime - savedStartTime;
         int seconds = (int) (millis / 1000);
         seconds = seconds % 60;
-        CharSequence text = String.format("App Rotated for " + "%02d:%d", seconds, millis);
-        Toast toast = Toast.makeText(context, text, duration);
+        CharSequence displayedText = String.format("App Rotated for " + "%02d:%d", seconds, millis);
+        Toast toast = Toast.makeText(context, displayedText, toastDuration);
         toast.show();
 
         super.onRestoreInstanceState(restoredInstanceState);
@@ -173,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
     /* When the app is put into the background by minimising and then re-opening the app,
        the length of time is saved and displayed in a Toast */
     @Override
-    public void onPause(){
+    public void onPause()
+    {
         super.onPause();
-        //current up time of the app
         minAppStartTime = SystemClock.uptimeMillis();
     }
 
@@ -186,18 +188,22 @@ public class MainActivity extends AppCompatActivity {
 
         //Toast - to display result
         Context context = getApplicationContext();
-        int duration = Toast.LENGTH_LONG;
+        int toastDuration = Toast.LENGTH_LONG;
         long millis = SystemClock.uptimeMillis() - minAppStartTime;
         int seconds = (int) (millis / 1000);
         int shortMillis = (int) ((millis / 100) % 10);
         seconds = seconds % 60;
-        CharSequence text = String.format("App Minimised for " + "%02d:%d", seconds, shortMillis);
-        Toast toast = Toast.makeText(context, text, duration);
+        CharSequence displayedText
+                = String.format("App Minimised for " + "%02d:%d", seconds, shortMillis);
+        Toast toast = Toast.makeText(context, displayedText, toastDuration);
         toast.show();
     }
 
 
 
+/*========================================================================
+   3.0 User Input
+==========================================================================*/
 
 
     /* Color Text
@@ -247,10 +253,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {this.text.setError(null);}
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            this.text.setError(null);}
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {this.text.setError(null);}
-
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            this.text.setError(null);}
 
 
         //Change EditText text colour when entering Country Name abbreviations
@@ -259,35 +266,37 @@ public class MainActivity extends AppCompatActivity {
         {
             try{
                 if(e.toString().equalsIgnoreCase(Team.IRE.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.green));
+                    this.text.setTextColor(Team.IRE.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.ENG.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.white));
+                    this.text.setTextColor(Team.ENG.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.WAL.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.red));
+                    this.text.setTextColor(Team.WAL.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.SCT.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.blue));
+                    this.text.setTextColor(Team.SCT.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.ITA.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                    this.text.setTextColor(Team.ITA.getColor());
                 }else if (e.toString().equalsIgnoreCase(Team.RSA.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.rsa_green));
+                    this.text.setTextColor(Team.RSA.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.SAM.toString())){
-                    this.text.setTextColor(getResources().getColor(R.color.sam_red));
+                    this.text.setTextColor(Team.SAM.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.JPN.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.jpn_red));
+                    this.text.setTextColor(Team.JPN.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.ROM.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.rom_blue));
+                    this.text.setTextColor(Team.ROM.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.CAN.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.red));
+                    this.text.setTextColor(Team.CAN.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.FIJ.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                    this.text.setTextColor(Team.FIJ.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.URG.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                    this.text.setTextColor(Team.URG.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.NZL.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.nzl_blue));
+                    this.text.setTextColor(Team.NZL.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.FRA.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.blue));
+                    this.text.setTextColor(Team.FRA.getColor());
                 }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
-                    this.text.setTextColor(getResources().getColor(R.color.cyan));
+                    this.text.setTextColor(Team.ARG.getColor());
+
+                //not using getColor() anymore, as it's now deprecated, but it still works
                 }else if(e.toString().equalsIgnoreCase(Team.AUS.toString())){
                     this.text.setTextColor(getResources().getColor(R.color.gold));
                 }
@@ -310,8 +319,6 @@ public class MainActivity extends AppCompatActivity {
             }catch(Exception exc){exc.printStackTrace();}
         }
     }//end QuartersTextWatcher
-
-
 
 
 
@@ -339,6 +346,7 @@ public class MainActivity extends AppCompatActivity {
         edTW = (EditText)findViewById(R.id.eTxtWinner);
 
 
+        //assigning EditText to Listeners
         edTQrt1.addTextChangedListener(QuarterValTextWatcher);
         edTQrt2.addTextChangedListener(QuarterValTextWatcher);
         edTQrt3.addTextChangedListener(QuarterValTextWatcher);
@@ -347,7 +355,6 @@ public class MainActivity extends AppCompatActivity {
         edTQrt6.addTextChangedListener(QuarterValTextWatcher);
         edTQrt7.addTextChangedListener(QuarterValTextWatcher);
         edTQrt8.addTextChangedListener(QuarterValTextWatcher);
-
         edTSemi1.addTextChangedListener(SemiValTextWatcher);
         edTSemi2.addTextChangedListener(SemiValTextWatcher);
         edTSemi3.addTextChangedListener(SemiValTextWatcher);
@@ -362,7 +369,6 @@ public class MainActivity extends AppCompatActivity {
     //1st TW Checking that Semi Final entries match their respective Quarter Final entries
     TextWatcher SemiValTextWatcher = new TextWatcher()
     {
-
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -410,7 +416,7 @@ public class MainActivity extends AppCompatActivity {
 
         } //end afterTextChanged
 
-    };//end SemiTextWatcher
+    };//end SemiValTextWatcher
 
 
 
@@ -443,8 +449,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }catch(Exception ex){ex.printStackTrace();}
         }
-
-    };//end FinalTextWatcher
+    };//end FinalValTextWatcher
 
 
 
@@ -471,10 +476,10 @@ public class MainActivity extends AppCompatActivity {
             }catch(Exception ex){ex.printStackTrace();}
         }
 
-    };//end WinnerTextWatcher
+    };//end WinnerValTextWatcher
 
 
-    //4th  TextWatcher - Checking that Quarters Teams are non-duplicate
+    //4th  TextWatcher - Checking that Quarters Teams are not duplicated
     TextWatcher QuarterValTextWatcher = new TextWatcher()
     {
         @Override
@@ -486,6 +491,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void afterTextChanged(Editable e)
         {
+
+            //get index of the ArrayList and assign it to variables
             String team1 = countryName.get(0).getText().toString();
             String team2 = countryName.get(1).getText().toString();
             String team3 = countryName.get(2).getText().toString();
@@ -495,14 +502,17 @@ public class MainActivity extends AppCompatActivity {
             String team7 = countryName.get(6).getText().toString();
             String team8 = countryName.get(7).getText().toString();
 
+
+            //use variables to catch duplication of Team entries in Quarter Finals
             try{
                 if(team1.equals(team2)){
                     edTQrt2.setError("No duplicate teams");
                 }else {
                     edTQrt2.setError(null);
                 }
+                //removes error when user clears field
                 if (edTQrt2.getText().toString().equals("")){
-                    edTQrt2.setError(null); //clears error fully
+                    edTQrt2.setError(null);
                 }
 
                 if(team3.equals(team4)){
