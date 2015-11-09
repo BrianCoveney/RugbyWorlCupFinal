@@ -1,15 +1,12 @@
 package com.cit.briancoveney.rugbyworldcup;
 
 /**
- * Created by briancoveney on 10/22/15.
+ * Created by Brian Coveney on 10/22/15.
+ * Student ID: R00105727
  */
 public class Match {
     private Team teamOne;
     private Team teamTwo;
-
-    public Match(){
-
-    }
 
 
     public Match(Team teamOne, Team teamTwo)
@@ -48,5 +45,4 @@ public class Match {
             return teamTwo;
         }
     }
-
 }

@@ -12,6 +12,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.util.ArrayList;
 
+/**
+ * Created by Brian Coveney on 10/22/15.
+ * Student ID: R00105727
+ */
 
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -31,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //linked with (2.0 - App in Background)
-    private long startTime = 0;
-    private long minAppStartTime = 0;
+    long minimisedAppStartTime = 0;
 
 
     @Override
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //linked with (3.0 - User Input)
-        countryName = new ArrayList<EditText>();
+        countryName = new ArrayList<>();
         countryEditTextReferences();
         currentCountryTextWatcher();
         teamSelected();
@@ -98,17 +101,18 @@ public class MainActivity extends AppCompatActivity {
                     edTSemi4.setText(semis.get(3).getTeamName());
 
 
-                    // for Final games
+                    // for the Finals
                     Match finals1 = new Match(semis.get(0), semis.get(1));
                     Match finals2 = new Match(semis.get(2), semis.get(3));
                     edTF1.setText(finals1.chooseAWinner().toString());
                     edTF2.setText(finals2.chooseAWinner().toString());
-                    ArrayList<String> theFinals = new ArrayList<String>();
+
+                    ArrayList<String> theFinals = new ArrayList<>();
                     theFinals.add(edTF1.getText().toString());
                     theFinals.add(edTF2.getText().toString());
 
                     //for the Winner
-                    edTW.setText(theFinals.get(0).toString());
+                    edTW.setText(theFinals.get(0));
 
                 } else {
                     //clear results by pressing Lucky Dip ToggleButton again
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState)
     {
-        startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
         savedInstanceState.putLong("savedTimerKey", startTime);
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -152,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle restoredInstanceState)
     {
         //current up-time of the app
-        long backgroundTime = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
 
         //the length of time the app is placed in the background - retrieved from the Bundle
         long savedStartTime = restoredInstanceState.getLong("savedTimerKey");
@@ -160,10 +164,11 @@ public class MainActivity extends AppCompatActivity {
         //Toast - to display result
         Context context = getApplicationContext();
         int toastDuration = Toast.LENGTH_LONG;
-        long millis = backgroundTime - savedStartTime;
+        long millis = currentTime - savedStartTime;
         int seconds = (int) (millis / 1000);
         seconds = seconds % 60;
-        CharSequence displayedText = String.format("App Rotated for " + "%02d:%d", seconds, millis);
+        CharSequence displayedText
+                = String.format("App Rotated for " + "%02d:%d", seconds, millis);
         Toast toast = Toast.makeText(context, displayedText, toastDuration);
         toast.show();
 
@@ -178,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause()
     {
         super.onPause();
-        minAppStartTime = SystemClock.uptimeMillis();
+        minimisedAppStartTime = SystemClock.uptimeMillis();
     }
 
     @Override
@@ -189,9 +194,9 @@ public class MainActivity extends AppCompatActivity {
         //Toast - to display result
         Context context = getApplicationContext();
         int toastDuration = Toast.LENGTH_LONG;
-        long millis = SystemClock.uptimeMillis() - minAppStartTime;
+        long millis = SystemClock.uptimeMillis() - minimisedAppStartTime;
         int seconds = (int) (millis / 1000);
-        int shortMillis = (int) ((millis / 100) % 10);
+        int shortMillis = (int) ((millis / 10) % 100);
         seconds = seconds % 60;
         CharSequence displayedText
                 = String.format("App Minimised for " + "%02d:%d", seconds, shortMillis);
@@ -235,19 +240,19 @@ public class MainActivity extends AppCompatActivity {
     {
         for(EditText currField : countryName)
         {
-            currField.addTextChangedListener(new colorTextWatcher(currField));
+            currField.addTextChangedListener(new ColorTextWatcher(currField));
         }
     }
 
 
 
-    // Inner Class - colorTextWatcher, used for each EditText of the Quarter Finals
-    private class colorTextWatcher implements TextWatcher
+    // Inner Class - ColorTextWatcher, used for each EditText of the Quarter Finals
+    private class ColorTextWatcher implements TextWatcher
     {
         private EditText text;
 
 
-        public colorTextWatcher(EditText text)
+        public ColorTextWatcher(EditText text)
         {
             this.text = text;
         }
@@ -296,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
                 }else if(e.toString().equalsIgnoreCase(Team.ARG.toString())) {
                     this.text.setTextColor(Team.ARG.getColor());
 
-                //not using getColor() anymore, as it's now deprecated, but it still works
+                //not using getColor() anymore, as it's now deprecated - but it still works
                 }else if(e.toString().equalsIgnoreCase(Team.AUS.toString())){
                     this.text.setTextColor(getResources().getColor(R.color.gold));
                 }
@@ -346,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         edTW = (EditText)findViewById(R.id.eTxtWinner);
 
 
-        //assigning EditText to Listeners
+        //assigning EditText to TextWatcher Listeners
         edTQrt1.addTextChangedListener(QuarterValTextWatcher);
         edTQrt2.addTextChangedListener(QuarterValTextWatcher);
         edTQrt3.addTextChangedListener(QuarterValTextWatcher);
@@ -366,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //1st TW Checking that Semi Final entries match their respective Quarter Final entries
+    //1st TW Checking that Semis matches the results of the Quarters
     TextWatcher SemiValTextWatcher = new TextWatcher()
     {
         @Override
@@ -420,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //2nd TextWatcher - Checking that Final entries match their respective Semi Final entries
+    //2nd TextWatcher - Checking that Final matches results of the Semi Finals
     TextWatcher FinalValTextWatcher = new TextWatcher()
     {
         @Override
@@ -453,7 +458,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //3rd TextWatcher -Checking that Winner entry matchrs eoth of the Semi Final entries
+    //3rd TextWatcher - Checking that Winner matches results of the Finals
     TextWatcher WinnerValTextWatcher = new TextWatcher()
     {
         @Override

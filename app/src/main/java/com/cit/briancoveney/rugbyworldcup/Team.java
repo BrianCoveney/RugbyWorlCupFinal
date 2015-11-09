@@ -1,7 +1,8 @@
 package com.cit.briancoveney.rugbyworldcup;
 
 /**
- * Created by briancoveney on 10/22/15.
+ * Created by Brian Coveney on 10/22/15.
+ * Student ID: R00105727
  */
 public enum Team {
     IRE("ire", -16711936),

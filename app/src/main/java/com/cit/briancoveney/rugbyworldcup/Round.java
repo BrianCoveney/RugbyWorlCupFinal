@@ -3,7 +3,8 @@ package com.cit.briancoveney.rugbyworldcup;
 import java.util.ArrayList;
 
 /**
- * Created by briancoveney on 10/22/15.
+ * Created by Brian Coveney on 10/22/15.
+ * Student ID: R00105727
  */
 public class Round {
     private ArrayList<Match> theMatches;
